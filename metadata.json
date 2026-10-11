@@ -1,0 +1,6 @@
+{
+  "name": "CineLog",
+  "description": "Acompanhamento completo de filmes, séries, animes e doramas com histórico de episódios e avaliações.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

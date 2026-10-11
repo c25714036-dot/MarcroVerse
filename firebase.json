@@ -1,0 +1,8 @@
+{
+  "firestore": [
+    {
+      "database": "ai-studio-android-cinelog-c78ecda9-acab-4255-bcba-5e92f04b368a",
+      "rules": "firestore.rules"
+    }
+  ]
+}

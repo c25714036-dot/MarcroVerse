@@ -1,0 +1,89 @@
+{
+  "entities": {
+    "LibraryItem": {
+      "title": "LibraryItem",
+      "description": "User saved media item tracking state and progress",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "externalId": { "type": "string" },
+        "source": { "type": "string", "enum": ["tmdb", "tvmaze"] },
+        "mediaType": { "type": "string", "enum": ["movie", "series", "anime", "dorama", "animation", "documentary"] },
+        "title": { "type": "string" },
+        "originalTitle": { "type": "string" },
+        "overview": { "type": "string" },
+        "posterPath": { "type": "string" },
+        "backdropPath": { "type": "string" },
+        "releaseYear": { "type": "string" },
+        "genres": { "type": "array" },
+        "status": { "type": "string", "enum": ["WANT_TO_WATCH", "WATCHING", "COMPLETED", "PAUSED", "DROPPED"] },
+        "totalEpisodes": { "type": "integer" },
+        "watchedEpisodes": { "type": "integer" },
+        "totalSeasons": { "type": "integer" },
+        "isMovie": { "type": "boolean" },
+        "movieWatched": { "type": "boolean" },
+        "lastWatchedSeason": { "type": "integer" },
+        "lastWatchedEpisode": { "type": "integer" },
+        "lastWatchedEpisodeName": { "type": "string" },
+        "nextEpisodeSeason": { "type": "integer" },
+        "nextEpisodeNumber": { "type": "integer" },
+        "nextEpisodeName": { "type": "string" },
+        "userRating": { "type": "number" },
+        "reviewText": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "externalId", "source", "mediaType", "title", "status"]
+    },
+    "EpisodeProgress": {
+      "title": "EpisodeProgress",
+      "description": "User watched status for an individual episode",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "mediaId": { "type": "string" },
+        "seasonNumber": { "type": "integer" },
+        "episodeNumber": { "type": "integer" },
+        "title": { "type": "string" },
+        "isSpecial": { "type": "boolean" },
+        "watched": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "mediaId", "seasonNumber", "episodeNumber", "watched"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "User personal review and score",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "mediaId": { "type": "string" },
+        "mediaTitle": { "type": "string" },
+        "mediaType": { "type": "string" },
+        "posterPath": { "type": "string" },
+        "rating": { "type": "number" },
+        "review": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "mediaId", "mediaTitle", "rating"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/library/{mediaId}": {
+      "schema": { "$ref": "#/entities/LibraryItem" },
+      "description": "Personal library media item with tracking state"
+    },
+    "/users/{userId}/library/{mediaId}/episodes/{episodeId}": {
+      "schema": { "$ref": "#/entities/EpisodeProgress" },
+      "description": "Watched status for specific episode"
+    },
+    "/users/{userId}/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Personal reviews and ratings"
+    }
+  }
+}
